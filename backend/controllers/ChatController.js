@@ -1,13 +1,19 @@
 const Chat = require('../models/Chat');
 
 module.exports = {
-    store(request, response){
-        const {origem, mensagem} = request.body;
+    async index(req, res){
+        const chats = await Chat.find();
+        res.json(chats);
+    },
 
-        let mensagem = Chat.create({
+    store(req, res){
+        const chat = {origem, mensagem} = req.body;
+
+        Chat.create({
             origem,
             mensagem
         });
-    }
+        res.send(chat);
+    },
     
 }
