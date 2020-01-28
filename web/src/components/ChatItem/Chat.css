@@ -13,6 +13,7 @@ aside{
 }
 main{
     width: 80%;
+    min-height: 440px;
     max-height: 440px;
     overflow-y: scroll;
     right: 0;

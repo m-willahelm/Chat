@@ -7,6 +7,8 @@ function Chat(){
    // const [papeador, setPapeador] = useState('');
     //const [papeadores, setPapeadores] = useState([]);
    const [papo, setPapo] = useState([]);
+   const [mensagem, setMensagem] = useState('');
+   const origem = "Jorge";
     useEffect(()=>{
         async function loadPapo(){
             const response = await api.get('/chat');
@@ -15,10 +17,22 @@ function Chat(){
         }
         loadPapo();
     }, [])
+    
+    async function sendMessage(){
+        const data = {
+            "origem":origem,
+            "mensagem":mensagem
+        }
+        if(data.mensagem){
+            const response = await api.post('/chat', data);
+            setMensagem('');
+            console.log(response);
+        }
+    }
     return(
         <>
             <header>
-                <h1>Nome do Usuário</h1>
+                <h1>{origem}</h1>
             </header>
             <aside>
                 <h2>Papeadores</h2>
@@ -40,10 +54,16 @@ function Chat(){
                 </ul>
             </main>
             </div>
-            <div className="message-box">
-               <textarea name="" id="" cols="30" rows="10"></textarea>
-                <button>ENVIAR</button>
-            </div>
+            <form action="" className="message-box" onSubmit={sendMessage}>
+               <textarea 
+                onChange={e=>setMensagem(e.target.value)}
+                value={mensagem}
+                name="mensagem" 
+                id="mensagem" 
+                cols="30" 
+                rows="10"/>
+                <button type="submit">ENVIAR</button>
+            </form>
         </>
     );
 }
