@@ -3,7 +3,7 @@ const Chat = require('../models/Chat');
 module.exports = {
     async index(req, res){
         const chats = await Chat.find();
-        res.json(chats);
+        return res.json(chats);
     },
 
     store(req, res){
