@@ -35,7 +35,8 @@ input[type='text']{
     width: 250px;
     height: 20px;
     border: solid 2px #9b59b6;
-    border-radius: 10%;
+    border-radius: 10%; 
+    font-weight: 500;
 }
 input[type='text']:focus{
     transition: 1s;

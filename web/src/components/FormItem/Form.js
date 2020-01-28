@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
+
 import './Form.css'
+import '../../services/api';
 function Form(){
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
