@@ -1,5 +1,12 @@
-import React, { useState } from 'react';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import React from 'react';
+import {
+  Switch,
+  Route,
+  Link,
+  Redirect,
+  useHistory,
+  useLocation
+} from "react-router-dom";
 
 import Form from './components/FormItem/Form';
 import Chat from './components/ChatItem/Chat';
@@ -10,7 +17,14 @@ function App() {
  
   return (
     <>
+     <Route exact path={'/'}>
       <Form/>
+     </Route>
+     <Route path={'/chat'}>
+       <Chat/>
+     </Route>
+      
+   
     </>
   );
 }
