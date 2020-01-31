@@ -4,15 +4,19 @@ import './Chat.css';
 import api from '../../services/api';
 
 function Chat(props){
-   
+  
    // const [papeador, setPapeador] = useState('');
     //const [papeadores, setPapeadores] = useState([]);
    const [papo, setPapo] = useState([]);
    const [mensagem, setMensagem] = useState('');
+   const queryString = require('query-string');
    const origem = "Jorge";
   
     useEffect(()=>{
-        console.log(props.match.params)
+        const params = props.location.search;
+        const  {nome, email} = queryString.parse(params);
+        console.log(email, nome);
+       
         async function loadPapo(){
            
            

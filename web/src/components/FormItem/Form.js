@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-
+//import {Redirect} from 'react-router-dom'
 
 import './Form.css'
 import '../../services/api';
 
 import api from '../../services/api';
+//import Chat from '../ChatItem/Chat';
 
-import Chat from '../ChatItem/Chat';
 function Form(){
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
@@ -17,6 +17,7 @@ function Form(){
             "email":email
         }
         const data = await api.post('/papeador', payload);
+        
     }
     return(
         <>
