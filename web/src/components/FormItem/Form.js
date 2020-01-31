@@ -28,6 +28,7 @@ function Form(){
                 autoComplete="off"
             >
             <h1>WELCOME TO PAPEADOR</h1>
+            <hr/>
             <div className="input-group">
             <div className="input-box">
                 <label htmlFor="nome">Nome:</label>

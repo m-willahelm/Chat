@@ -1,11 +1,6 @@
 import React from 'react';
 import {
-  Switch,
   Route,
-  Link,
-  Redirect,
-  useHistory,
-  useLocation
 } from "react-router-dom";
 
 import Form from './components/FormItem/Form';
@@ -20,9 +15,8 @@ function App() {
      <Route exact path={'/'}>
       <Form/>
      </Route>
-     <Route path={'/chat'}>
-       <Chat/>
-     </Route>
+     <Route path={'/chat/:nome?/:email?'} component={Chat}/>
+    
       
    
     </>

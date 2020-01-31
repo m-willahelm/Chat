@@ -3,14 +3,19 @@ import React, { useState, useEffect } from 'react';
 import './Chat.css';
 import api from '../../services/api';
 
-function Chat(){
+function Chat(props){
+   
    // const [papeador, setPapeador] = useState('');
     //const [papeadores, setPapeadores] = useState([]);
    const [papo, setPapo] = useState([]);
    const [mensagem, setMensagem] = useState('');
    const origem = "Jorge";
+  
     useEffect(()=>{
+        console.log(props.match.params)
         async function loadPapo(){
+           
+           
             const response = await api.get('/chat');
            
             setPapo(response.data);
