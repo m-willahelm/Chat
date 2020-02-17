@@ -1,17 +1,27 @@
 var express = require('express');
+const app = express();
+var server = require('http').createServer(app);
+const io = require('socket.io')(server);
 const cors = require('cors');
 const mongoose = require('mongoose');
 
-const routes = require('../routes')
+const routes = require('../routes');
+
 mongoose.connect('mongodb+srv://guiMachado:password007@cluster0-xjbsa.mongodb.net/chatRoom?retryWrites=true&w=majority',{
     useNewUrlParser:true,
     useUnifiedTopology:true
-})
+});
 
-const app = express();
+
+
 app.use(cors());
 app.use(express.json());
-
 app.use(routes);
+io.on('connection', socket=>{
+    console.log('Socket conectado');
+})
+server.listen(3333, ()=>{
+    console.log('PORTA 3333');
+});
 
-app.listen(3333)
+
