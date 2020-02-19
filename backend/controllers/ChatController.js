@@ -8,10 +8,10 @@ module.exports = {
 
     store(req, res){
         const chat = {origem, mensagem} = req.body;
-
+        
         Chat.create({
             origem,
-            mensagem
+            mensagem,
         });
         res.send(chat);
     },

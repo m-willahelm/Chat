@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import './Chat.css';
 import api from '../../services/api';
 
+import socketio from 'socket.io-client';
 function Chat(props){
     const queryString = require('query-string');
     const [users, setUsers] = useState([]);
@@ -10,36 +11,47 @@ function Chat(props){
     const [mensagem, setMensagem] = useState('');
     const [usuario, setUsuario] = useState('');
     const [userEmail, setUserEmail] = useState('');
-  
+    const socket = socketio('http://localhost:3333');
+
     useEffect(()=>{
         const params = props.location.search;
         const  {nome, email} = queryString.parse(params);
         setUsuario(nome);
         setUserEmail(email);
+
         async function loadUsers(){
             const response = await api.get('/papeador');
             setUsers(response.data);
             console.log(users);
         }
+
         async function loadPapo(){
             const response = await api.get('/chat');
-           
             setPapo(response.data);
         }
-        loadPapo();
+     
+        //loadPapo();
         loadUsers();
+        socket.connect();
     }, [])
-    
-    async function sendMessage(e){
+
+    socket.on('broadcast', message=>{
+        console.log(message);
+        const {origem, mensagem} = message
+        const data = {origem, mensagem};
+        setPapo([...papo, data]);
+    });
+
+     async function sendMessage(e){
         e.preventDefault();
         const data = {
             "origem":usuario,
-            "mensagem":mensagem
+            "mensagem":mensagem,
         }
         if(data.mensagem){
-            const response = await api.post('/chat', data);
+            //const response = await api.post('/chat', data);
             setMensagem('');
-            console.log(response);
+            socket.emit('sendMessage', data)
         }
     }
     return(
@@ -58,10 +70,9 @@ function Chat(props){
                    ))}
                 </ul>
             </aside>
-            <main>
-               
+            <main> 
                 {papo.map(papo=>(
-                       <div className="message-list"key={papo._id}>
+                       <div className="message-list" key={papo._id}>
                             <h3>{papo.origem}</h3>
                             <p>{papo.mensagem}</p>
                        </div>

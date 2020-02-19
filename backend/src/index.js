@@ -12,16 +12,16 @@ mongoose.connect('mongodb+srv://guiMachado:password007@cluster0-xjbsa.mongodb.ne
     useUnifiedTopology:true
 });
 
-
-
 app.use(cors());
 app.use(express.json());
 app.use(routes);
 io.on('connection', socket=>{
     console.log('Socket conectado');
+    socket.on('sendMessage', data=>{
+        console.log(data);
+        socket.broadcast.emit('broadcast', data)
+    })
 })
-server.listen(3333, ()=>{
-    console.log('PORTA 3333');
-});
+server.listen(3333);
 
 
